@@ -1,0 +1,19 @@
+'get the total number of segments from the user
+TextWindow.Write("How many segments? ")
+numSegments = TextWindow.ReadNumber()
+
+'build the array of data used for calculations
+for x=1 to numSegments '<---This is the number of segments the user said he had
+    TextWindow.Write("Enter Distance " + x + ": ")
+    distances[x] = TextWindow.ReadNumber() '<-- store distance into array element
+endfor
+
+'then to get them back out you loop through the array items like this
+'note the item in the array is accessed using the value of the loop variable (y)
+totalDistance = 0
+for y=1 to numSegments
+  'total up the distances by reading each one back out of the array after they have all been entered
+  totalDistance = totalDistance + distances[y] 
+endfor
+
+TextWindow.WriteLine("total distance: " + totalDistance)
