@@ -1,0 +1,132 @@
+Initialize()
+FindFiles()
+SelectFile()
+ReadFileContent()
+ShowFileContent()
+
+'
+'---- Subroutines----
+'
+Sub Initialize
+  'TextWindow.WriteLine("Initializing variables")
+  folderName = "c:\quizzes"
+  fileType = ".quiz"
+  folderOffset = Text.GetLength(folderName)+2
+  maxFileLines = 50
+EndSub
+
+'Find files of a specific type in a specified folder
+'
+'input variables  (name - type, description)
+'    folderName - string, folder in which to look for files
+'    fileType - string, indicates the files ending characters
+'
+'output variables (name - type, description)
+'    allFileNames - array of strings, "1 based" set/list containing all the files in the folder at folderName
+'     allFileCount - integer, the number of all the files in the folder at folderName
+'    filesOfType - array of integers, "1 based" set/list containing the indices of the allFileNames array that match the specified type
+'    typeMatchCount - integer, the number of matches found of the specified file type
+'
+Sub FindFiles
+  'TextWindow.WriteLine("finding " + fileType + " files")
+  allFileNames = File.GetFiles(folderName)
+  allFileCount = Array.GetItemCount(allFileNames)
+  typeMatchCount = 1
+  For allFileIndex = 1 To allFileCount
+    fileName = allFileNames[allFileIndex]
+    If Text.EndsWith(fileName, fileType) Then
+      'keep a list of the indices of the files matches
+      filesOfType[typeMatchCount] = allFileIndex
+      typeMatchCount = typeMatchCount + 1
+    EndIf
+  EndFor
+  typeMatchCount = typeMatchCount -1 'adjust because of creating a 1 based array
+EndSub
+
+' present a list of choices in menu form given a set of pre-defined data
+'
+'input variables
+'    typeMatchCount
+'    allFileNames
+'    filesOfType
+'    folderOffset - integer, the number of characters to remove from the start of each name
+'
+'output variables
+'    none
+'
+Sub ShowFileMenu
+  TextWindow.WriteLine("")
+  'TextWindow.WriteLine("showing " + fileType + " files")
+  For fileIndex = 1 To typeMatchCount
+    fullName = allFileNames[filesOfType[fileIndex]]
+    'make the name "cleaner" for menu, but don't modify the original set of file names
+    shortName = Text.GetSubTextToEnd(fullName, folderOffset)
+    TextWindow.WriteLine(fileIndex + ") " + shortName)
+  EndFor
+  TextWindow.WriteLine("")
+  TextWindow.Write("Enter Selection: ")
+EndSub
+
+'get the user's selection of an item in a menu
+'
+'input variables
+'    typeMatchCount
+'    filesOfType
+'
+'output variables
+'    IndexOfSelectedFile - integer, the index into the allFileNames array the user wants to use
+'
+Sub SelectFile
+  'TextWindow.WriteLine("Selecting " + fileType + " file")
+  IndexOfSelectedFile = 0
+  If typeMatchCount < 1 Then
+    TextWindow.WriteLine("No Files of type " + fileType + " at " + folderName + " Found!")
+  else
+    choice = 0
+    While choice < 1 Or choice > typeMatchCount
+      ShowFileMenu()
+      choice = TextWindow.ReadNumber()
+    EndWhile
+    IndexOfSelectedFile = filesOfType[choice]
+  EndIf
+EndSub
+
+Sub ReadFileContent
+  If IndexOfSelectedFile > 0 then
+    selectedFileName = allFileNames[IndexOfSelectedFile]
+    TextWindow.WriteLine("File selected: " + selectedFileName)
+    lineNumberToRead = 1
+    fileLinesCount = 1
+    lineFromFile = ""
+    While LineFromFile <> "EOF" and lineNumberToRead < maxFileLines
+      LineFromFile = File.ReadLine(selectedFileName, lineNumberToRead)
+      If LineFromFile <> "" Then
+        fileLines[fileLinesCount] = LineFromFile
+        fileLinesCount = fileLinesCount + 1
+      EndIf
+      lineNumberToRead = lineNumberToRead + 1
+    EndWhile
+    fileLinesCount = fileLinesCount - 1 'adjust because of creating a 1 based array
+  EndIf
+EndSub
+
+Sub ShowFileContent
+  For lineIndex = 1 To fileLinesCount
+    TextWindow.WriteLine("")
+    lineToParse = fileLines[lineIndex]
+    TextWindow.WriteLine(lineToparse)
+    ParseLine()
+  EndFor
+EndSub
+
+Sub ParseLine
+  'texttoparse = ("Question" + lineIndex + "|" + "Answer" + lineIndex)
+  position = Text.GetIndexOf(lineToParse, "|")
+  question = Text.GetSubText(lineToParse, 1, position - 1)
+  answer = Text.GetSubTextToEnd(lineToParse, position + 1)
+  TextWindow.WriteLine("Question: " + question)
+  TextWindow.WriteLine("Answer: " + answer)
+EndSub
+
+
+
