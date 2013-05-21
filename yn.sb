@@ -1,0 +1,20 @@
+doneAsking = 0
+While doneAsking = 0
+  TextWindow.Write("Again? [y]/n : ")
+  yn = TextWindow.Read()
+  'also accept the default (pressing enter results in empty string value)
+  If yn = "" Or (Text.ConvertToLowerCase(yn) = "y") Then
+    result = 1
+    doneAsking = 1
+  ElseIf Text.ConvertToLowerCase(yn) = "n" Then
+    result = 0
+    doneAsking = 1
+  EndIf
+EndWhile
+  
+If result = 0 Then
+  TextWindow.WriteLine("negative")
+Else
+  TextWindow.WriteLine("affirmative")
+EndIf
+  
