@@ -32,6 +32,30 @@ Sub CreateCardDeck
   'put each card into the deck
   currentCardFace = "Ace"
   AddSuitsForFace()
+  currentCardFace = "Two"
+  AddSuitsForFace()
+  currentCardFace = "Three"
+  AddSuitsForFace()
+  currentCardFace = "Four"
+  AddSuitsForFace()
+  currentCardFace = "Five"
+  AddSuitsForFace()
+  currentCardFace = "Six"
+  AddSuitsForFace()
+  currentCardFace = "Seven"
+  AddSuitsForFace()
+  currentCardFace = "Eight"
+  AddSuitsForFace()
+  currentCardFace = "Nine"
+  AddSuitsForFace()
+  currentCardFace = "Ten"
+  AddSuitsForFace()
+  currentCardFace = "Jack"
+  AddSuitsForFace()
+  currentCardFace = "Queen"
+  AddSuitsForFace()
+  currentCardFace = "King"
+  AddSuitsForFace()
   'add rest of cards here (do same as above 2 lines for rest of cards 2 through King)
   
   cardCount = currentCardNumber-1 ' adjust count at the end for the 1 based array
@@ -40,6 +64,12 @@ EndSub
 'subroutine to add each suit for a given card type
 Sub AddSuitsForFace
   currentCardName = currentCardFace + " of Spades"
+  AddCardToDeck()
+  currentCardName = currentCardFace + " of Clubs"
+  AddCardToDeck()
+  currentCardName = currentCardFace + " of Hearts"
+  AddCardToDeck()
+  currentCardName = currentCardFace + " of Diamonds"
   AddCardToDeck()
   'add the other suits (do same as above 2 lines for Clubs, Hearts and Diamonds)
   
