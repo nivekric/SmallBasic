@@ -91,6 +91,16 @@ Sub SelectFile
   EndIf
 EndSub
 
+'Subroutine to read the selected file
+'
+'input variables (name, type - description)
+'    IndexOfSelectedFile, integer - the index into the allFileNames array for the selected file (0 if none)
+'    allFileNames
+'
+'output variables
+'    fileLines, array of strings - each array element contains a line from the file
+'    fileLinesCount, integer - total number of lines read from the file
+'
 Sub ReadFileContent
   If IndexOfSelectedFile > 0 then
     selectedFileName = allFileNames[IndexOfSelectedFile]
