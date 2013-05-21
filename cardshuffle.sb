@@ -1,0 +1,58 @@
+CreateCardDeck()
+ShuffleCardDeck()
+DisplayShuffledCards()
+
+'
+'---------------- subroutines -------------------
+'
+Sub DisplayShuffledCards
+  'output the results
+  For cardIndex = 1 to cardCount
+    'note the accessing of one array with the value of another array
+    'it's like one stack of boxes that has inside of each box the number of another box in a different stack
+    'another way to do it would be to break it into more variables
+    'randomCardIndex = shuffledCards[cardIndex]
+    'oneCard = cardDeck[randomCardIndex]
+    'instead of this
+    oneCard = cardDeck[shuffledCards[cardIndex]]
+    
+    TextWindow.WriteLine(oneCard)
+  EndFor
+EndSub
+
+'Modern Fisher-Yates shuffle
+'re-order the shuffled cards index array to a random sequence
+Sub ShuffleCardDeck
+  'we will work on this, for now no re-ordering is done
+EndSub
+
+Sub CreateCardDeck
+  currentCardNumber = 1 ' init the card counter
+
+  'put each card into the deck
+  currentCardFace = "Ace"
+  AddSuitsForFace()
+  'add rest of cards here (do same as above 2 lines for rest of cards 2 through King)
+  
+  cardCount = currentCardNumber-1 ' adjust count at the end for the 1 based array
+EndSub
+
+'subroutine to add each suit for a given card type
+Sub AddSuitsForFace
+  currentCardName = currentCardFace + " of Spades"
+  AddCardToDeck()
+  'add the other suits (do same as above 2 lines for Clubs, Hearts and Diamonds)
+  
+EndSub
+
+Sub AddCardToDeck
+  'add a new card to the the array
+  cardDeck[currentCardNumber] = currentCardName
+  
+  'initialize an array to an ordered sequence as we go along for when we want to shuffle
+  shuffledCards[currentCardNumber] = currentCardNumber
+  
+  'increment the index number of the cards
+  currentCardNumber = currentCardNumber + 1
+EndSub
+  
