@@ -91,7 +91,16 @@ Sub SelectFile
   EndIf
 EndSub
 
-'Subroutine to read the selected file
+'Read the selected file's content
+'This function reads the file a line at a time, I could not find anything in Small Basic that would indicate we
+'have reached the end of the file when reading a line at a time.  There are several options to overcome this.
+'1) Read the entire file in 1 read (File.ReadContents) then parse the giant string into multiple lines by
+'looking for NewLine chars etc.
+'2)Require an artificial EOF indicator ("EOF" on a line by itself at the end of the file)
+'3)Stop when an empty line is encountered
+'4)Stop when either an artificial EOF is encountered or some max number of lines is read (ignoring empty lines)
+'
+'The current implementation uses solution 4, though this is arbitrary
 '
 'input variables (name, type - description)
 '    IndexOfSelectedFile, integer - the index into the allFileNames array for the selected file (0 if none)
