@@ -1,0 +1,20 @@
+'generate random numbers and 'graph' the distribution
+maxIterations = 1000
+maxNumber = 52
+
+For x=1 To maxIterations
+  randomNumber[x]=0
+EndFor
+
+For x=1 to maxIterations
+  newNumber = Math.GetRandomNumber(maxNumber)
+  randomNumber[newnumber] = randomNumber[newNumber]+1
+EndFor
+
+For x=1 to maxNumber
+  TextWindow.WriteLine(x + " (" + randomNumber[x] + " times)")
+  For frequencyTick = 1 To randomNumber[x]
+    TextWindow.Write("*")
+  EndFor
+textwindow.WriteLine("")
+EndFor
