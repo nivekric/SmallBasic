@@ -22,12 +22,14 @@ Sub CreateArray1
 EndSub
 
 Sub DisplayArray1
+  TextWindow.WriteLine("- Array 1:")
   genericArray = array1
   genericArraySize = array1Count
   DisplayArrayContent()
 EndSub
 
 Sub ShuffleArray1
+  TextWindow.WriteLine("Shuffling Array 1:")
   arrayToShuffle = array1
   arrayToShuffleSize = array1Count
   ShuffleIt()
@@ -50,12 +52,14 @@ Sub CreateArray2
 EndSub
 
 Sub DisplayArray2
+  TextWindow.WriteLine("- Array 2:")
   genericArray = array2
   genericArraySize = array2Count
   DisplayArrayContent()
 EndSub
 
 Sub ShuffleArray2
+  TextWindow.WriteLine("Shuffling Array 2:")
   arrayToShuffle = array2
   arrayToShuffleSize = array2Count
   ShuffleIt()
