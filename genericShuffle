@@ -1,0 +1,82 @@
+CreateArray1()
+DisplayArray1()
+ShuffleArray1()
+DisplayArray1()
+
+TextWindow.WriteLine("")
+
+CreateArray2()
+DisplayArray2()
+ShuffleArray2()
+DisplayArray2()
+
+'---- subs ----
+'array 1'
+Sub CreateArray1
+  array1[1] = " 1"
+  array1[2] = " 2"
+  array1[3] = " 3"
+  array1[4] = " 4"
+  array1[5] = " 5"
+  array1Count = 5
+EndSub
+
+Sub DisplayArray1
+  genericArray = array1
+  genericArraySize = array1Count
+  DisplayArrayContent()
+EndSub
+
+Sub ShuffleArray1
+  arrayToShuffle = array1
+  arrayToShuffleSize = array1Count
+  ShuffleIt()
+  array1 = arrayToShuffle
+EndSub
+
+'array 2'
+Sub CreateArray2
+  array2[1] = " 1"
+  array2[2] = " 2"
+  array2[3] = " 3"
+  array2[4] = " 4"
+  array2[5] = " 5"
+  array2[6] = " 6"
+  array2[7] = " 7"
+  array2[8] = " 8"
+  array2[9] = " 9"
+  array2[10] = " 10"
+  array2Count = 10
+EndSub
+
+Sub DisplayArray2
+  genericArray = array2
+  genericArraySize = array2Count
+  DisplayArrayContent()
+EndSub
+
+Sub ShuffleArray2
+  arrayToShuffle = array2
+  arrayToShuffleSize = array2Count
+  ShuffleIt()
+  array2 = arrayToShuffle
+
+EndSub
+
+Sub ShuffleIt
+  For shuffleItemIndex = arrayToShuffleSize To 1 Step -1
+    randomShuffleItemIndex = Math.GetRandomNumber(shuffleItemIndex)
+    'exchange the random item with the current topmost position
+    temp = arrayToShuffle[shuffleItemIndex]
+    arrayToShuffle[shuffleItemIndex] = arrayToShuffle[randomShuffleItemIndex]
+    arrayToShuffle[randomShuffleItemIndex] = temp
+    'TextWindow.WriteLine(arrayToShuffle[randomShuffleItemIndex])
+  EndFor
+EndSub
+
+Sub DisplayArrayContent
+    For currentIndex = 1 to genericArraySize
+        TextWindow.WriteLine(genericArray[currentIndex])
+    EndFor
+  EndSub
+  
