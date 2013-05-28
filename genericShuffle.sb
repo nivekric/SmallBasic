@@ -18,22 +18,19 @@ Sub CreateArray1
   array1[3] = " 3"
   array1[4] = " 4"
   array1[5] = " 5"
-  array1Count = 5
 EndSub
 
 Sub DisplayArray1
   TextWindow.WriteLine("- Array 1:")
   genericArray = array1
-  genericArraySize = array1Count
   DisplayArrayContent()
 EndSub
 
 Sub ShuffleArray1
   TextWindow.WriteLine("Shuffling Array 1:")
-  arrayToShuffle = array1
-  arrayToShuffleSize = array1Count
+  shuffleArray = array1
   ShuffleIt()
-  array1 = arrayToShuffle
+  array1 = shuffleArray
 EndSub
 
 'array 2'
@@ -48,39 +45,34 @@ Sub CreateArray2
   array2[8] = " 8"
   array2[9] = " 9"
   array2[10] = " 10"
-  array2Count = 10
 EndSub
 
 Sub DisplayArray2
   TextWindow.WriteLine("- Array 2:")
   genericArray = array2
-  genericArraySize = array2Count
   DisplayArrayContent()
 EndSub
 
 Sub ShuffleArray2
   TextWindow.WriteLine("Shuffling Array 2:")
-  arrayToShuffle = array2
-  arrayToShuffleSize = array2Count
+  shuffleArray = array2
   ShuffleIt()
-  array2 = arrayToShuffle
-
+  array2 = shuffleArray
 EndSub
 
 Sub ShuffleIt
-  For shuffleItemIndex = arrayToShuffleSize To 1 Step -1
+  genericArraySize = Array.GetItemCount(shuffleArray)
+  For shuffleItemIndex = genericArraySize To 1 Step -1
     randomShuffleItemIndex = Math.GetRandomNumber(shuffleItemIndex)
-    'exchange the random item with the current topmost position
-    temp = arrayToShuffle[shuffleItemIndex]
-    arrayToShuffle[shuffleItemIndex] = arrayToShuffle[randomShuffleItemIndex]
-    arrayToShuffle[randomShuffleItemIndex] = temp
-    'TextWindow.WriteLine(arrayToShuffle[randomShuffleItemIndex])
+    temp = shuffleArray[shuffleItemIndex]
+    shuffleArray[shuffleItemIndex] = shuffleArray[randomShuffleItemIndex]
+    shuffleArray[randomShuffleItemIndex] = temp
   EndFor
 EndSub
 
 Sub DisplayArrayContent
-    For currentIndex = 1 to genericArraySize
-        TextWindow.WriteLine(genericArray[currentIndex])
-    EndFor
-  EndSub
-  
+  genericArraySize = Array.GetItemCount(genericArray)
+  For currentIndex = 1 to genericArraySize
+    TextWindow.WriteLine(genericArray[currentIndex])
+  EndFor
+EndSub
