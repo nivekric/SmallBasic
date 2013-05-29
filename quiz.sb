@@ -2,6 +2,7 @@ Initialize()
 FindFiles()
 SelectFile()
 ReadFileContent()
+ParseLines()
 ShowFileContent()
 
 '
@@ -132,19 +133,19 @@ EndSub
 Sub ShowFileContent
   For lineIndex = 1 To fileLinesCount
     TextWindow.WriteLine("")
-    lineToParse = fileLines[lineIndex]
-    TextWindow.WriteLine(lineToparse)
-    ParseLine()
+    TextWindow.WriteLine(fileLines[lineIndex])
+    TextWindow.WriteLine(question[lineIndex])
+    TextWindow.WriteLine(answer[lineIndex])
   EndFor
 EndSub
 
-Sub ParseLine
-  'texttoparse = ("Question" + lineIndex + "|" + "Answer" + lineIndex)
-  position = Text.GetIndexOf(lineToParse, "|")
-  question = Text.GetSubText(lineToParse, 1, position - 1)
-  answer = Text.GetSubTextToEnd(lineToParse, position + 1)
-  TextWindow.WriteLine("Question: " + question)
-  TextWindow.WriteLine("Answer: " + answer)
+Sub ParseLines
+  For lineIndex = 1 To fileLinesCount
+    lineToParse = fileLines[lineIndex]
+    position = Text.GetIndexOf(lineToParse, "|")
+    question[lineIndex] = Text.GetSubText(lineToParse, 1, position - 1)
+    answer[lineIndex] = Text.GetSubTextToEnd(lineToParse, position + 1)
+  EndFor
 EndSub
 
 
