@@ -122,9 +122,9 @@ Sub ReadFileContent
       LineFromFile = File.ReadLine(selectedFileName, lineNumberToRead)
       If LineFromFile <> "" Then
         fileLines[fileLinesCount] = LineFromFile
+        questionOrder[fileLinesCount] = fileLinesCount
         fileLinesCount = fileLinesCount + 1
       EndIf
-      questionOrder[lineNumberToRead] = lineNumberToRead
       lineNumberToRead = lineNumberToRead + 1
     EndWhile
     fileLinesCount = fileLinesCount - 1 'adjust because of creating a 1 based array
