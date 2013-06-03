@@ -124,6 +124,7 @@ Sub ReadFileContent
         fileLines[fileLinesCount] = LineFromFile
         fileLinesCount = fileLinesCount + 1
       EndIf
+      questionOrder[lineNumberToRead] = lineNumberToRead
       lineNumberToRead = lineNumberToRead + 1
     EndWhile
     fileLinesCount = fileLinesCount - 1 'adjust because of creating a 1 based array
