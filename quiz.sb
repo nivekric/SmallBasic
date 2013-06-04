@@ -3,6 +3,7 @@ FindFiles()
 SelectFile()
 ReadFileContent()
 ParseLines()
+Scramble()
 ShowFileContent()
 
 '
@@ -134,9 +135,10 @@ EndSub
 Sub ShowFileContent
   For lineIndex = 1 To fileLinesCount
     TextWindow.WriteLine("")
-    TextWindow.WriteLine(fileLines[lineIndex])
-    TextWindow.WriteLine(question[lineIndex])
-    TextWindow.WriteLine(answer[lineIndex])
+    qaIndex = questionOrder[lineIndex]
+    TextWindow.WriteLine(fileLines[qaIndex])
+    TextWindow.WriteLine(question[qaIndex])
+    TextWindow.WriteLine(answer[qaIndex])
   EndFor
 EndSub
 
@@ -149,5 +151,18 @@ Sub ParseLines
   EndFor
 EndSub
 
+Sub ShuffleIt
+  genericArraySize = Array.GetItemCount(shuffleArray)
+  For shuffleItemIndex = genericArraySize To 1 Step -1
+    randomShuffleItemIndex = Math.GetRandomNumber(shuffleItemIndex)
+    temp = shuffleArray[shuffleItemIndex]
+    shuffleArray[shuffleItemIndex] = shuffleArray[randomShuffleItemIndex]
+    shuffleArray[randomShuffleItemIndex] = temp
+  EndFor
+EndSub
 
-
+Sub Scramble
+  shuffleArray = questionOrder
+  ShuffleIt()
+  questionOrder = shuffleArray
+EndSub
