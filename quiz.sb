@@ -5,6 +5,7 @@ ReadFileContent()
 ParseLines()
 Scramble()
 ShowFileContent()
+Quiz()
 
 '
 '---- Subroutines----
@@ -15,6 +16,7 @@ Sub Initialize
   fileType = ".quiz"
   folderOffset = Text.GetLength(folderName)+2
   maxFileLines = 50
+  numberOfChoices = 4
 EndSub
 
 'Find files of a specific type in a specified folder
@@ -166,3 +168,37 @@ Sub Scramble
   ShuffleIt()
   questionOrder = shuffleArray
 EndSub
+
+Sub Quiz
+  For lineIndex = 1 To fileLinesCount
+    correctAnswerIndex = questionOrder[lineIndex]
+    SetChoices()
+  EndFor
+EndSub
+
+Sub SetChoices
+  multipleChoices[1] = correctAnswerIndex
+  multipleChoices[2] = multipleChoices[1]
+  For y=2 To numberOfChoices
+    duplicates = 1
+    While duplicates <> 0
+      multipleChoices[y] = Math.GetRandomNumber(fileLinesCount)
+      'inputChoice = TextWindow.ReadNumber()
+      duplicates = 0
+      For z=1 To y-1
+        If multipleChoices[z] = multipleChoices[y] Then
+          duplicates = 1
+        EndIf
+      EndFor
+    EndWhile
+  EndFor
+  'diagnostics - TODO: remove when ready to ship
+  TextWindow.WriteLine("Question/correct answer index: " + correctAnswerIndex)
+  For y=1 To numberOfChoices
+    TextWindow.WriteLine("Choice " + y + ": " + multipleChoices[y])
+  EndFor
+EndSub
+
+Sub SelectChoices
+EndSub
+  
