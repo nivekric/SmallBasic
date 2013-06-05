@@ -195,7 +195,7 @@ Sub Quiz
   TextWindow.WriteLine("")
   percentage = (numberCorrect / fileLinesCount) * 10000
   percentage = percentage / 100
-  Math.(percentage)
+  Math.Round(percentage)
   TextWindow.WriteLine("Final Score: " + numberCorrect +" out of " + fileLinesCount + " (" + percentage + "%)")
   TextWindow.WriteLine("")
 EndSub
