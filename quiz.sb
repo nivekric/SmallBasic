@@ -4,7 +4,6 @@ SelectFile()
 ReadFileContent()
 ParseLines()
 Scramble()
-ShowFileContent()
 Quiz()
 
 '
@@ -170,10 +169,35 @@ Sub Scramble
 EndSub
 
 Sub Quiz
-  For lineIndex = 1 To fileLinesCount
-    correctAnswerIndex = questionOrder[lineIndex]
+  numberCorrect = 0
+  For currentQuestion = 1 To fileLinesCount
+    correctAnswerIndex = questionOrder[currentQuestion]
     SetChoices()
+    ScrambleChoiceOrder()
+    choice = -1
+    While choice < 1 Or choice > numberOfChoices
+      DisplayQuestion()
+      choice = TextWindow.ReadNumber()
+      If choice < 1 Or choice > numberOfChoices Then
+        TextWindow.WriteLine("")
+        TextWindow.WriteLine("Error. Please enter a valid number value between 1 and" + numberOfChoices)
+      EndIf
+    EndWhile
+    TextWindow.WriteLine("")
+    If multipleChoices[choice] = correctAnswerIndex Then
+      TextWindow.WriteLine("Correct.")
+      numberCorrect = numberCorrect + 1
+    Else
+      TextWindow.WriteLine("Incorrect.")
+    EndIf
   EndFor
+  
+  TextWindow.WriteLine("")
+  percentage = (numberCorrect / fileLinesCount) * 10000
+  percentage = percentage / 100
+  Math.(percentage)
+  TextWindow.WriteLine("Final Score: " + numberCorrect +" out of " + fileLinesCount + " (" + percentage + "%)")
+  TextWindow.WriteLine("")
 EndSub
 
 Sub SetChoices
@@ -183,7 +207,6 @@ Sub SetChoices
     duplicates = 1
     While duplicates <> 0
       multipleChoices[y] = Math.GetRandomNumber(fileLinesCount)
-      'inputChoice = TextWindow.ReadNumber()
       duplicates = 0
       For z=1 To y-1
         If multipleChoices[z] = multipleChoices[y] Then
@@ -193,12 +216,26 @@ Sub SetChoices
     EndWhile
   EndFor
   'diagnostics - TODO: remove when ready to ship
-  TextWindow.WriteLine("Question/correct answer index: " + correctAnswerIndex)
+  'TextWindow.WriteLine("Question/correct answer index: " + correctAnswerIndex)
   For y=1 To numberOfChoices
-    TextWindow.WriteLine("Choice " + y + ": " + multipleChoices[y])
+    'TextWindow.WriteLine("Choice " + y + ": " + multipleChoices[y])
   EndFor
 EndSub
 
-Sub SelectChoices
+Sub ScrambleChoiceOrder
+  shuffleArray = multipleChoices
+  ShuffleIt()
+  multipleChoices = shuffleArray
 EndSub
-  
+
+Sub DisplayQuestion
+  TextWindow.WriteLine("")
+  TextWindow.Write("Question " + currentQuestion + " of " + fileLinesCount + ": " + question[correctAnswerIndex])
+  TextWindow.WriteLine("")
+  TextWindow.WriteLine("")
+  For answerindex = 1 To numberOfChoices
+    TextWindow.WriteLine(answerindex + ")" + answer[multipleChoices[answerindex]])
+  EndFor
+  TextWindow.WriteLine("")
+  TextWindow.Write("Enter number of correct answer: ")
+EndSub
