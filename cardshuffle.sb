@@ -1,6 +1,7 @@
 CreateCardDeck()
 ShuffleCardDeck()
-DisplayShuffledCards()
+'DisplayShuffledCards()
+SetupButtons()
 
 '
 '---------------- subroutines -------------------
@@ -35,31 +36,31 @@ Sub CreateCardDeck
   currentCardNumber = 1 ' init the card counter
   
   'put each card into the deck
-  currentCardFace = "Ace"
+  currentCardFace = "ace"
   AddSuitsForFace()
-  currentCardFace = "Two"
+  currentCardFace = "2"
   AddSuitsForFace()
-  currentCardFace = "Three"
+  currentCardFace = "3"
   AddSuitsForFace()
-  currentCardFace = "Four"
+  currentCardFace = "4"
   AddSuitsForFace()
-  currentCardFace = "Five"
+  currentCardFace = "5"
   AddSuitsForFace()
-  currentCardFace = "Six"
+  currentCardFace = "6"
   AddSuitsForFace()
-  currentCardFace = "Seven"
+  currentCardFace = "7"
   AddSuitsForFace()
-  currentCardFace = "Eight"
+  currentCardFace = "8"
   AddSuitsForFace()
-  currentCardFace = "Nine"
+  currentCardFace = "9"
   AddSuitsForFace()
-  currentCardFace = "Ten"
+  currentCardFace = "10"
   AddSuitsForFace()
-  currentCardFace = "Jack"
+  currentCardFace = "jack"
   AddSuitsForFace()
-  currentCardFace = "Queen"
+  currentCardFace = "queen"
   AddSuitsForFace()
-  currentCardFace = "King"
+  currentCardFace = "king"
   AddSuitsForFace()
   
   cardCount = currentCardNumber-1 ' adjust count at the end for the 1 based array
@@ -67,13 +68,13 @@ EndSub
 
 'subroutine to add each suit for a given card type
 Sub AddSuitsForFace
-  currentCardName = currentCardFace + " of Spades"
+  currentCardName = currentCardFace + "_of_spades"
   AddCardToDeck()
-  currentCardName = currentCardFace + " of Clubs"
+  currentCardName = currentCardFace + "_of_clubs"
   AddCardToDeck()
-  currentCardName = currentCardFace + " of Hearts"
+  currentCardName = currentCardFace + "_of_hearts"
   AddCardToDeck()
-  currentCardName = currentCardFace + " of Diamonds"
+  currentCardName = currentCardFace + "_of_diamonds"
   AddCardToDeck()
 EndSub
 
@@ -87,3 +88,40 @@ Sub AddCardToDeck
   'increment the index number of the cards
   currentCardNumber = currentCardNumber + 1
 EndSub
+
+Sub SetupButtons
+  GfxDisplay()
+  cardToDeal = 1
+  dealButton = Controls.AddButton("Deal Card ", 425, 1 )
+  shuffleButton = Controls.AddButton("Re-Shuffle", 425, 28)
+  Controls.ButtonClicked = OnButtonClicked
+EndSub
+
+Sub GfxDisplay
+  GraphicsWindow.Width = "500"
+  GraphicsWindow.Height = "726"
+  GraphicsWindow.BackgroundColor = "Gray"
+EndSub
+
+Sub DisplayCard
+  cardName = cardDeck[shuffledCards[cardToDeal]]
+  ext = ".png"
+  cardName =  "C:\SmallBasic\images\cards\" + cardName + ext"
+  GraphicsWindow.DrawImage(cardName, 0, 0)
+EndSub
+
+Sub OnButtonClicked
+  buttonClicked = Controls.LastClickedButton
+  If buttonClicked = dealButton Then
+    displayCard()
+    If cardToDeal < cardCount Then
+      cardToDeal = cardToDeal + 1
+    EndIf
+  ElseIf buttonClicked = shuffleButton then
+    cardToDeal = 1
+    ShuffleCardDeck()
+    GraphicsWindow.Clear()
+    SetupButtons()
+  EndIf
+EndSub
+  
